@@ -610,6 +610,7 @@ export class Encoder extends Decoder {
 				target[position++] = 0xf7
 			} else if (type === 'function' && this.skipFunction) {
 				// Skip function type
+				return;
 			} else {
 				throw new Error('Unknown type: ' + type)
 			}
