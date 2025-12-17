@@ -608,6 +608,8 @@ export class Encoder extends Decoder {
 				position += 8
 			} else if (type === 'undefined') {
 				target[position++] = 0xf7
+			} else if (type === 'function' && this.skipFunction) {
+				// Skip function type
 			} else {
 				throw new Error('Unknown type: ' + type)
 			}
