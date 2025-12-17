@@ -474,6 +474,9 @@ export class Encoder extends Decoder {
 					}
 					let constructor = value.constructor
 					if (constructor === Object) {
+						if (this.skipFunction === true) {
+							value = Object.fromEntries([...Object.keys(value).filter(x => typeof value[x] !== "function").map(x => [x, value[x]])]);
+						}
 						writeObject(value)
 					} else if (constructor === Array) {
 						length = value.length
@@ -608,9 +611,6 @@ export class Encoder extends Decoder {
 				position += 8
 			} else if (type === 'undefined') {
 				target[position++] = 0xf7
-			} else if (type === 'function' && this.skipFunction) {
-				// Skip function type
-				return;
 			} else {
 				throw new Error('Unknown type: ' + type)
 			}
