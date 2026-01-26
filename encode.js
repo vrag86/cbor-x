@@ -486,7 +486,13 @@ export class Encoder extends Decoder {
 							writeArrayHeader(length)
 						}
 						for (let i = 0; i < length; i++) {
-							encode(value[i])
+							// Convert function values to null
+							if (this.skipFunction === true && typeof value[i] === "function") {
+								encode(null)
+							}
+							else {
+								encode(value[i])
+							}
 						}
 					} else if (constructor === Map) {
 						if (this.mapsAsObjects ? this.useTag259ForMaps !== false : this.useTag259ForMaps) {
