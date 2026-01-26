@@ -579,6 +579,9 @@ export class Encoder extends Decoder {
 						}
 
 						// no extension found, write as a plain object
+						if (this.skipFunction === true) {
+							value = Object.fromEntries([...Object.keys(value).filter(x => typeof value[x] !== "function").map(x => [x, value[x]])]);
+						}
 						writeObject(value)
 					}
 				}
