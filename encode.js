@@ -580,7 +580,7 @@ export class Encoder extends Decoder {
 
 						// no extension found, write as a plain object
 						if (this.skipFunction === true) {
-							for (key of Object.keys(value)) {
+							for (const key of Object.keys(value)) {
 								if (typeof value[key] === "function") {
 									delete value[key]
 								}
